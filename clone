@@ -1,0 +1,22 @@
+#!/bin/sh
+git clone https://github.com/abricos/abricos-core.git
+git submodule init
+git submodule update
+cd abricos-core/modules
+git clone https://github.com/abricos/abricos-mod-bos.git bos
+git clone https://github.com/abricos/abricos-mod-blog.git blog
+git clone https://github.com/abricos/abricos-mod-bostick.git bostick
+git clone https://github.com/abricos/abricos-mod-botask.git botask
+git clone https://github.com/abricos/abricos-mod-calendar.git calendar
+git clone https://github.com/abricos/abricos-mod-comment.git comment
+git clone https://github.com/abricos/abricos-mod-forum.git forum
+git clone https://github.com/abricos/abricos-mod-money.git money
+git clone https://github.com/abricos/abricos-mod-news.git news
+git clone https://github.com/abricos/abricos-mod-note.git note
+git clone https://github.com/abricos/abricos-mod-report.git report
+git clone https://github.com/abricos/abricos-mod-rss.git rss
+git clone https://github.com/abricos/abricos-mod-social.git social
+git clone https://github.com/abricos/abricos-mod-socialist.git socialist
+git clone https://github.com/abricos/abricos-mod-support.git support
+git clone https://github.com/abricos/abricos-mod-taskportal.git taskportal
+git clone https://github.com/abricos/abricos-mod-tinymce.git tinymce
