@@ -1,38 +1,58 @@
-#!/bin/sh
-git clone git@github.com:abricos/abricos-core.git www
-cd www
-git submodule init
-git submodule update
+#!/bin/bash
+
+# usage: ./export [site|ehsop]
+# usage: ./export [site|ehsop] [master|dev]
+
+# Первый параметр указывает тип сборки: 
+#   site - сайт визитка,
+#   eshop - интернет магазин
+
+# Второй параметр указывает на репо:
+#   master - стабильная версия
+#   dev - в разработке
+
+DEFMODS="bos tinymce uprofile widget news sitemap filemanager notify"
+
+if [ $1 == "eshop" ] 
+then
+    DISTR="eshop"
+    MODS="$DEFMODS catalog eshop"
+else
+    DISTR="site"
+    MODS=$DEFMODS
+fi
+
+if [ $2 == "dev" ]
+then
+    REPO="dev"
+else
+    REPO="master"
+fi
+
+DIR="build/$DISTR"
+
+mkdir -p $DIR
+git clone -b $REPO git@github.com:abricos/abricos-core.git $DIR
+
+cd $DIR
+
 rm -fr .git
 rm -fr .gitignore
 rm -fr cache/.gitignore
+rm -fr images/.gitignore
+rm -fr includes/.gitignore
+rm -fr js/.gitignore
 rm -fr modules/.gitignore
+rm -fr tt/.gitignore
 rm -fr .gitmodules
 cp def.htaccess .htaccess
 cp includes/config.example.php includes/config.php
 
 
-rm -fr modules/bos/.git
-rm -fr modules/bos/.gitignore
+for n in $MODS; do
+    echo "Export abriocs module $n"
+    git clone -b $REPO git@github.com:abricos/abricos-mod-$n.git modules/$n
+    rm -fr modules/$n/.git
+    rm -fr modules/$n/.gitignore
+done
 
-rm -fr modules/filemanager/.git
-rm -fr modules/filemanager/.gitignore
-
-rm -fr modules/notify/.git
-rm -fr modules/notify/.gitignore
-
-rm -fr modules/sitemap/.git
-rm -fr modules/sitemap/.gitignore
-
-rm -fr modules/tinymce/.git
-rm -fr modules/tinymce/.gitignore
-
-rm -fr modules/uprofile/.git
-rm -fr modules/uprofile/.gitignore
-
-rm -fr modules/widget/.git
-rm -fr modules/widget/.gitignore
-
-git clone git@github.com:abricos/abricos-mod-news.git modules/news
-rm -fr modules/news/.git
-rm -fr modules/news/.gitignore
