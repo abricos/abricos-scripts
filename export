@@ -32,7 +32,7 @@ fi
 DIR="build/$DISTR"
 
 mkdir -p $DIR
-git clone -b $REPO git@github.com:abricos/abricos-core.git $DIR
+git clone -b $REPO https://github.com/abricos/abricos-core.git $DIR
 
 cd $DIR
 
@@ -51,7 +51,7 @@ cp includes/config.example.php includes/config.php
 
 for n in $MODS; do
     echo "Export abriocs module $n"
-    git clone -b $REPO git@github.com:abricos/abricos-mod-$n.git modules/$n
+    git clone -b $REPO https://github.com/abricos/abricos-mod-$n.git modules/$n
     rm -fr modules/$n/.git
     rm -fr modules/$n/.gitignore
 done
