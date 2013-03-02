@@ -39,6 +39,9 @@ fi
 
 DIR="build/$DISTR"
 
+# rmdir -p --ignore-fail-on-non-empty $DIR
+rm -fr $DIR
+
 mkdir -p $DIR
 git clone -b $REPO https://github.com/abricos/abricos-core.git $DIR
 
@@ -54,7 +57,7 @@ rm -fr modules/.gitignore
 rm -fr tt/.gitignore
 rm -fr .gitmodules
 
-if [ $3 == "new" ]
+if [ "$3" == "new" ]
 then
     cp def.htaccess .htaccess
     cp includes/config.example.php includes/config.php
