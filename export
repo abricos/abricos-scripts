@@ -1,22 +1,29 @@
 #!/bin/bash
 
-# usage: ./export [site|ehsop]
-# usage: ./export [site|ehsop] [master|dev]
+# usage: ./export [site|ehsop|blog]
+# usage: ./export [site|ehsop|blog] [master|dev] [new]
 
 # Первый параметр указывает тип сборки: 
 #   site - сайт визитка,
 #   eshop - интернет магазин
+#   blog - социальный блог
 
 # Второй параметр указывает на репо:
 #   master - стабильная версия
 #   dev - в разработке
 
-DEFMODS="bos tinymce uprofile widget news sitemap filemanager notify"
+DEFMODS="bos tinymce uprofile widget news sitemap filemanager notify rss"
 
-if [ $1 == "eshop" ] 
+if [ $1 == "eshop" ]
 then
     DISTR="eshop"
     MODS="$DEFMODS catalog eshop"
+fi
+
+if [ $1 == "blog" ]
+then
+    DISTR="blog"
+    MODS="$DEFMODS blog comment socialist urating"
 else
     DISTR="site"
     MODS=$DEFMODS
@@ -24,6 +31,7 @@ fi
 
 if [ $2 == "dev" ]
 then
+    DISTR="$DISTR-dev"
     REPO="dev"
 else
     REPO="master"
@@ -45,9 +53,12 @@ rm -fr js/.gitignore
 rm -fr modules/.gitignore
 rm -fr tt/.gitignore
 rm -fr .gitmodules
-cp def.htaccess .htaccess
-cp includes/config.example.php includes/config.php
 
+if [ $3 == "new" ]
+then
+    cp def.htaccess .htaccess
+    cp includes/config.example.php includes/config.php
+fi
 
 for n in $MODS; do
     echo "Export abriocs module $n"
@@ -55,4 +66,3 @@ for n in $MODS; do
     rm -fr modules/$n/.git
     rm -fr modules/$n/.gitignore
 done
-
