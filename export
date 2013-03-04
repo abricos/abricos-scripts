@@ -13,23 +13,22 @@
 #   dev - в разработке
 
 DEFMODS="bos tinymce uprofile widget news sitemap filemanager notify rss"
+DISTR="site"
+MODS=$DEFMODS
 
-if [ $1 == "eshop" ]
+if [ "$1" == "blog" ]
+then
+    DISTR="blog"
+    MODS="$DEFMODS blog comment socialist urating"
+fi
+
+if [ "$1" == "eshop" ]
 then
     DISTR="eshop"
     MODS="$DEFMODS catalog eshop"
 fi
 
-if [ $1 == "blog" ]
-then
-    DISTR="blog"
-    MODS="$DEFMODS blog comment socialist urating"
-else
-    DISTR="site"
-    MODS=$DEFMODS
-fi
-
-if [ $2 == "dev" ]
+if [ "$2" == "dev" ]
 then
     DISTR="$DISTR-dev"
     REPO="dev"
