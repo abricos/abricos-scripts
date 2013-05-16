@@ -8,13 +8,17 @@
 #   eshop - интернет магазин
 #   blog - социальный блог
 
-# Второй параметр указывает на репо:
+# Второй параметр указывает на ветку:
 #   master - стабильная версия
 #   dev - в разработке
+
+# Третий параметр указывает на тип сборки:
+#   distrib - сборка дистрибутива
 
 DEFMODS="bos tinymce uprofile widget news sitemap filemanager notify rss"
 DISTR="site"
 MODS=$DEFMODS
+TEMPLATES=""
 
 if [ "$1" == "blog" ]
 then
@@ -26,6 +30,13 @@ if [ "$1" == "eshop" ]
 then
     DISTR="eshop"
     MODS="$DEFMODS catalog eshop"
+
+        if [ "$3" == "distrib" ]
+        then
+            DISTR="$DISTR-distrib"
+            MODS="$DEFMODS eshopportal"
+            TEMPLATES="eshoptp"
+        fi
 fi
 
 if [ "$2" == "dev" ]
@@ -63,8 +74,23 @@ then
 fi
 
 for n in $MODS; do
-    echo "Export abriocs module $n"
+    echo "Export abricos module $n"
     git clone -b $REPO https://github.com/abricos/abricos-mod-$n.git modules/$n
     rm -fr modules/$n/.git
     rm -fr modules/$n/.gitignore
 done
+
+for n in $TEMPLATES; do
+    echo "Export abricos template $n"
+    git clone -b $REPO https://github.com/abricos/abricos-tt-$n.git tt/$n
+    rm -fr tt/$n/.git
+    rm -fr tt/$n/.gitignore
+done
+
+if [ "$3" == "distrib" ]
+then
+    echo "Export abricos installer"
+    git clone -b $REPO https://github.com/abricos/abricos-install.git install
+    rm -fr install/.git
+    rm -fr install/.gitignore
+fi
