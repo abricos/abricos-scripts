@@ -34,7 +34,7 @@ then
         if [ "$3" == "distrib" ]
         then
             DISTR="$DISTR-distrib"
-            MODS="$DEFMODS eshopportal"
+            MODS="$MODS eshopportal"
             TEMPLATES="eshoptp"
         fi
 fi
