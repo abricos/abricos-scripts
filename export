@@ -32,12 +32,12 @@ then
     DISTR="eshop"
     MODS="$DEFMODS catalog eshop eshopcart"
 
-        if [ "$3" == "distrib" ]
-        then
-            DISTR="$DISTR-distrib"
-            MODS="$MODS eshopportal"
-            TEMPLATES="eshoptp"
-        fi
+    if [ "$3" == "distrib" ]
+    then
+        DISTR="$DISTR-distrib"
+        MODS="$MODS eshopportal"
+        TEMPLATES="eshoptp"
+   fi
 fi
 
 if [ "$1" == "task" ]
@@ -45,12 +45,12 @@ then
     DISTR="task"
     MODS="$DEFMODS blog comment socialist urating bostick botask calendar chart forum money note social support todolist"
 
-        if [ "$3" == "distrib" ]
-        then
-            DISTR="$DISTR-distrib"
-            MODS="$MODS taskportal"
-            TEMPLATES="tasktp"
-        fi
+    if [ "$3" == "distrib" ]
+    then
+        DISTR="$DISTR-distrib"
+        MODS="$MODS taskportal"
+        TEMPLATES="tasktp"
+    fi
 fi
 
 
