@@ -1,12 +1,13 @@
 #!/bin/bash
 
-# usage: ./export [site|ehsop|blog]
-# usage: ./export [site|ehsop|blog] [master|dev] [new]
+# usage: ./export [site|ehsop|blog|task]
+# usage: ./export [site|ehsop|blog|task] [master|dev] [distrib|new]
 
 # Первый параметр указывает тип сборки: 
 #   site - сайт визитка,
 #   eshop - интернет магазин
 #   blog - социальный блог
+#   task - менеджер задач
 
 # Второй параметр указывает на ветку:
 #   master - стабильная версия
@@ -29,7 +30,7 @@ fi
 if [ "$1" == "eshop" ]
 then
     DISTR="eshop"
-    MODS="$DEFMODS catalog eshop"
+    MODS="$DEFMODS catalog eshop eshopcart"
 
         if [ "$3" == "distrib" ]
         then
@@ -38,6 +39,20 @@ then
             TEMPLATES="eshoptp"
         fi
 fi
+
+if [ "$1" == "task" ]
+then
+    DISTR="task"
+    MODS="$DEFMODS blog comment socialist urating bostick botask calendar chart forum money note social support todolist"
+
+        if [ "$3" == "distrib" ]
+        then
+            DISTR="$DISTR-distrib"
+            MODS="$MODS taskportal"
+            TEMPLATES="tasktp"
+        fi
+fi
+
 
 if [ "$2" == "dev" ]
 then
